@@ -1,9 +1,9 @@
 ---
-title: "Blog"
+title: "Posts"
 description: "Collection of things I've done"
 
 cascade:
-  showDate: false
+  showDate: true
   showAuthor: false
   invertPagination: true
 ---

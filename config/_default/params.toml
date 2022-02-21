@@ -10,7 +10,7 @@ defaultAppearance = "light" # valid options: light or dark
 autoSwitchAppearance = true
 showAppearanceSwitcher = false
 
-enableSearch = false
+enableSearch = true
 enableCodeCopy = false
 
 # mainSections = ["section1", "section2"]
@@ -19,13 +19,13 @@ showScrollToTop = true
 
 [homepage]
   layout = "profile" # valid options: page, profile, custom
-  showRecent = false
+  showRecent = true
 
 [article]
   showDate = true
   showDateUpdated = false
   showAuthor = true
-  showBreadcrumbs = false
+  showBreadcrumbs = true
   showDraftLabel = true
   showEdit = false
   # editURL = "https://github.com/username/repo/"
@@ -43,7 +43,7 @@ showScrollToTop = true
   showBreadcrumbs = false
   showSummary = false
   showTableOfContents = false
-  groupByYear = true
+  groupByYear = false
 
 [sitemap]
   excludedKinds = ["taxonomy", "term"]
@@ -54,6 +54,10 @@ showScrollToTop = true
 [fathomAnalytics]
   # site = "ABC12345"
   # domain = "llama.yoursite.com"
+
+[umamiAnalytics]
+  site = "6b55cd82-d3ad-4001-8536-c873b4af5364"
+  domain = "umami.app.marco.ooo"
 
 [verification]
   # google = ""
