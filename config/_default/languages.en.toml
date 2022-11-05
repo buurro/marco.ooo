@@ -15,7 +15,7 @@ dateFormat = "2 January 2006"
 [author]
   name = "Marco Burro"
   image = "img/me.jpeg"
-  headline = "Currently trying to setup this site"
+  headline = "Some day I'll post stuff here"
   # bio = "Can"
   links = [
     { github = "https://github.com/schiism" },
