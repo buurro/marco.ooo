@@ -10,6 +10,13 @@
 
       buildDependencies = with pkgs; [ git go hugo ];
 
+      themeCongo = pkgs.fetchFromGitHub {
+        owner = "jpanther";
+        repo = "congo";
+        rev = "v2.6.1";
+        sha256 = "0l36wvgn97cpkmjj095fz8hc6fa0vm8hrh63vcsqikhfpr79l3yq";
+      };
+
       marcoooo = pkgs.stdenv.mkDerivation {
         name = "marco-ooo";
         version = "0.1.0";
@@ -18,6 +25,8 @@
 
         # works on macos for some reason
         buildPhase = ''
+          mkdir -p themes
+          cp -r ${themeCongo} themes/congo
           ${pkgs.hugo}/bin/hugo
         '';
         installPhase = ''
@@ -48,6 +57,9 @@
     in
     {
       devShells.default = pkgs.mkShell {
+        shellHook = ''
+          mkdir themes; ln -s ${themeCongo} themes/congo
+        '';
         buildInputs = buildDependencies;
       };
       packages = {
