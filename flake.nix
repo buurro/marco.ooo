@@ -8,7 +8,7 @@
     let
       pkgs = import nixpkgs { inherit system; };
 
-      buildDependencies = with pkgs; [ git go hugo ];
+      buildDependencies = with pkgs; [ hugo ];
 
       themeCongo = pkgs.fetchFromGitHub {
         owner = "jpanther";
@@ -34,7 +34,7 @@
         '';
       };
 
-      nginxPort = "80";
+      nginxPort = "8000";
       nginxConf = pkgs.writeText "nginx.conf" ''
         user nobody nobody;
         daemon off;
@@ -58,7 +58,9 @@
     {
       devShells.default = pkgs.mkShell {
         shellHook = ''
-          mkdir themes; ln -s ${themeCongo} themes/congo
+          rm themes/congo
+          mkdir -p themes
+          ln -s ${themeCongo} themes/congo
         '';
         buildInputs = buildDependencies;
       };
