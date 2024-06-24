@@ -47,17 +47,27 @@
         buildInputs = buildDependencies;
       };
       packages = rec {
-        default = server;
-        server = pkgs.writeShellScriptBin "marco-ooo-server" ''
+        default = sws;
+
+        sws = pkgs.writeShellScriptBin "marco-ooo-server" ''
           ${pkgs.lib.getExe pkgs.static-web-server} -p 8000 -g info -d ${marcoooo}
         '';
+
+        busybox = pkgs.writeShellScriptBin "marco-ooo-server" ''
+          ${pkgs.busybox}/bin/httpd file-server -f -p 8000 -v -h ${marcoooo}
+        '';
+
+        caddy = pkgs.writeShellScriptBin "marco-ooo-server" ''
+          ${pkgs.caddy}/bin/caddy file-server --listen :8000 --root ${marcoooo}
+        '';
+
         containerImage = pkgs.dockerTools.buildImage {
           name = "ghcr.io/buurro/marco.ooo";
           tag = "latest";
           created = "now";
           copyToRoot = pkgs.buildEnv {
             name = "image-root";
-            paths = [ server ];
+            paths = [ sws ];
             pathsToLink = [ "/bin" ];
           };
           config = {
