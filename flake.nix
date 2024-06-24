@@ -6,6 +6,8 @@
 
   outputs = { self, nixpkgs, utils }: utils.lib.eachDefaultSystem (system:
     let
+      version = "0.1.0";
+
       pkgs = import nixpkgs { inherit system; };
 
       buildDependencies = with pkgs; [ hugo ];
@@ -19,7 +21,7 @@
 
       marcoooo = pkgs.stdenv.mkDerivation {
         name = "marco-ooo";
-        version = "0.1.0";
+        version = version;
         src = ./.;
         buildInputs = buildDependencies;
 
@@ -34,28 +36,8 @@
         '';
       };
 
-      nginxPort = "8000";
-      nginxConf = pkgs.writeText "nginx.conf" ''
-        user nobody nobody;
-        daemon off;
-        error_log /dev/stdout info;
-        pid /dev/null;
-        events {}
-        http {
-          include ${pkgs.nginx}/conf/mime.types;
-          access_log /dev/stdout;
-          server {
-            listen ${nginxPort};
-            index index.html;
-            location / {
-              root ${marcoooo};
-            }
-          }
-        }
-      '';
-
     in
-    {
+    rec {
       devShells.default = pkgs.mkShell {
         shellHook = ''
           rm themes/congo
@@ -67,9 +49,24 @@
       packages = {
         default = marcoooo;
         server = pkgs.writeShellScriptBin "marco-ooo-server" ''
-          ${pkgs.nginx}/sbin/nginx -c ${nginxConf}
+          ${pkgs.lib.getExe pkgs.static-web-server} -p 8000 -g info -d ${marcoooo}
         '';
       };
+      containerImages.default = pkgs.dockerTools.buildImage {
+        name = "ghcr.io/buurro/marco.ooo";
+        tag = "latest";
+        created = "now";
+        copyToRoot = pkgs.buildEnv {
+          name = "image-root";
+          paths = [ packages.server ];
+          pathsToLink = [ "/bin" ];
+        };
+        config = {
+          Cmd = [ "/bin/marco-ooo-server" ];
+          Expose = [ 8000 ];
+        };
+      };
+
     }
   );
 }
