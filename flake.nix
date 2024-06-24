@@ -37,7 +37,7 @@
       };
 
     in
-    rec {
+    {
       devShells.default = pkgs.mkShell {
         shellHook = ''
           rm themes/congo
@@ -46,27 +46,27 @@
         '';
         buildInputs = buildDependencies;
       };
-      packages = {
-        default = marcoooo;
+      packages = rec {
+        default = server;
         server = pkgs.writeShellScriptBin "marco-ooo-server" ''
           ${pkgs.lib.getExe pkgs.static-web-server} -p 8000 -g info -d ${marcoooo}
         '';
-      };
-      containerImages.default = pkgs.dockerTools.buildImage {
-        name = "ghcr.io/buurro/marco.ooo";
-        tag = "latest";
-        created = "now";
-        copyToRoot = pkgs.buildEnv {
-          name = "image-root";
-          paths = [ packages.server ];
-          pathsToLink = [ "/bin" ];
+        containerImage = pkgs.dockerTools.buildImage {
+          name = "ghcr.io/buurro/marco.ooo";
+          tag = "latest";
+          created = "now";
+          copyToRoot = pkgs.buildEnv {
+            name = "image-root";
+            paths = [ server ];
+            pathsToLink = [ "/bin" ];
+          };
+          config = {
+            Cmd = [ "/bin/marco-ooo-server" ];
+            Expose = [ 8000 ];
+          };
         };
-        config = {
-          Cmd = [ "/bin/marco-ooo-server" ];
-          Expose = [ 8000 ];
-        };
-      };
 
+      };
     }
   );
 }

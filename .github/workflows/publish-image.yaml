@@ -27,7 +27,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build container
-        run: nix build -L .#containerImages.x86_64-linux.default
+        run: nix build -L .#containerImage
       - name: Push image to ghcr
         run: |
           docker load < result
