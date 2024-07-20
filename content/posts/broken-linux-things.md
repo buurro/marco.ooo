@@ -2,7 +2,7 @@
 title: "Broken things I found while using Fedora"
 description: "List of broken things I encountered running Fedora as my primary OS for a few weeks"
 date: 2022-11-05T12:26:05+01:00
-draft: false
+draft: true
 ---
 
 {{< lead >}}
