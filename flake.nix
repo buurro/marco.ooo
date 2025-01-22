@@ -61,15 +61,11 @@
           ${pkgs.caddy}/bin/caddy file-server --listen :8000 --root ${marcoooo}
         '';
 
-        containerImage = pkgs.dockerTools.buildImage {
+        containerImage = pkgs.dockerTools.streamLayeredImage {
           name = "ghcr.io/buurro/marco.ooo";
-          tag = "latest";
+          tag = version;
           created = "now";
-          copyToRoot = pkgs.buildEnv {
-            name = "image-root";
-            paths = [ sws ];
-            pathsToLink = [ "/bin" ];
-          };
+          contents = [ sws ];
           config = {
             Cmd = [ "/bin/marco-ooo-server" ];
             Expose = [ 8000 ];
