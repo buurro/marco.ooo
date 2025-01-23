@@ -6,7 +6,9 @@
 
   outputs = { self, nixpkgs, utils }: utils.lib.eachDefaultSystem (system:
     let
-      version = "0.1.0";
+      version = "0.1.1";
+
+      port = "8000";
 
       pkgs = import nixpkgs { inherit system; };
 
@@ -50,15 +52,15 @@
         default = sws;
 
         sws = pkgs.writeShellScriptBin "marco-ooo-server" ''
-          ${pkgs.lib.getExe pkgs.static-web-server} -p 8000 -g info -d ${marcoooo}
+          ${pkgs.lib.getExe pkgs.static-web-server} -p ${port} -g info -d ${marcoooo}
         '';
 
         busybox = pkgs.writeShellScriptBin "marco-ooo-server" ''
-          ${pkgs.busybox}/bin/httpd file-server -f -p 8000 -v -h ${marcoooo}
+          ${pkgs.busybox}/bin/httpd file-server -f -p ${port} -v -h ${marcoooo}
         '';
 
         caddy = pkgs.writeShellScriptBin "marco-ooo-server" ''
-          ${pkgs.caddy}/bin/caddy file-server --listen :8000 --root ${marcoooo}
+          ${pkgs.caddy}/bin/caddy file-server --listen :${port} --root ${marcoooo}
         '';
 
         containerImage = pkgs.dockerTools.streamLayeredImage {
@@ -68,7 +70,9 @@
           contents = [ sws ];
           config = {
             Cmd = [ "/bin/marco-ooo-server" ];
-            Expose = [ 8000 ];
+            ExposedPorts = {
+              "${port}/tcp" = { };
+            };
           };
         };
         html = marcoooo;
