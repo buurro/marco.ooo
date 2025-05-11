@@ -39,7 +39,7 @@
       };
 
     in
-    {
+    rec {
       devShells.default = pkgs.mkShell {
         shellHook = ''
           rm themes/congo
@@ -48,26 +48,24 @@
         '';
         buildInputs = buildDependencies;
       };
-      packages = rec {
-        default = sws;
+      packages = {
+        default = self.packages.sws;
 
         sws = pkgs.writeShellScriptBin "marco-ooo-server" ''
           ${pkgs.lib.getExe pkgs.static-web-server} -p ${port} -g info -d ${marcoooo}
-        '';
-
-        busybox = pkgs.writeShellScriptBin "marco-ooo-server" ''
-          ${pkgs.busybox}/bin/httpd file-server -f -p ${port} -v -h ${marcoooo}
         '';
 
         caddy = pkgs.writeShellScriptBin "marco-ooo-server" ''
           ${pkgs.caddy}/bin/caddy file-server --listen :${port} --root ${marcoooo}
         '';
 
+        html = marcoooo;
+      } // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
         containerImage = pkgs.dockerTools.streamLayeredImage {
           name = "ghcr.io/buurro/marco.ooo";
           tag = version;
           created = "now";
-          contents = [ sws ];
+          contents = [ packages.sws ];
           config = {
             Cmd = [ "/bin/marco-ooo-server" ];
             ExposedPorts = {
@@ -75,7 +73,6 @@
             };
           };
         };
-        html = marcoooo;
       };
     }
   );
