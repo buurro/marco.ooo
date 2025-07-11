@@ -49,7 +49,7 @@
         buildInputs = buildDependencies;
       };
       packages = {
-        default = self.packages.sws;
+        default = packages.sws;
 
         sws = pkgs.writeShellScriptBin "marco-ooo-server" ''
           ${pkgs.lib.getExe pkgs.static-web-server} -p ${port} -g info -d ${marcoooo}
