@@ -20,6 +20,7 @@ dateFormat = "2 January 2006"
   links = [
     { github = "https://github.com/buurro" },
     { twitter = "https://twitter.com/BurroMarco" },
+    { bluesky = "https://bsky.app/profile/marco.ooo" },
   #   { email = "mailto:hello@your_domain.com" },
   #   { link = "https://link-to-some-website.com/" },
   #   { amazon = "https://www.amazon.com/hz/wishlist/ls/wishlist-id" },

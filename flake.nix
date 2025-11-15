@@ -6,7 +6,7 @@
 
   outputs = { self, nixpkgs, utils }: utils.lib.eachDefaultSystem (system:
     let
-      version = "0.1.5";
+      version = "0.1.6";
 
       port = "8000";
 
