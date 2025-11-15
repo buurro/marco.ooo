@@ -1,12 +1,12 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, nixpkgs, utils }: utils.lib.eachDefaultSystem (system:
     let
-      version = "0.1.4";
+      version = "0.1.5";
 
       port = "8000";
 
@@ -17,8 +17,8 @@
       themeCongo = pkgs.fetchFromGitHub {
         owner = "jpanther";
         repo = "congo";
-        rev = "v2.6.1";
-        sha256 = "0l36wvgn97cpkmjj095fz8hc6fa0vm8hrh63vcsqikhfpr79l3yq";
+        rev = "v2.12.2";
+        sha256 = "sha256-VzO4hQH+o2a65sH6CA1bQjTDuFRRyUQOP17f4J0kCKY=";
       };
 
       marcoooo = pkgs.stdenv.mkDerivation {

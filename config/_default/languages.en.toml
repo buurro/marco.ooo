@@ -12,7 +12,7 @@ title = "Burro"
 
 dateFormat = "2 January 2006"
 
-[author]
+[params.author]
   name = "Marco Burro"
   image = "img/me.jpeg"
   headline = "Some day I'll post stuff here"
