@@ -11,7 +11,7 @@
   }:
     utils.lib.eachDefaultSystem (
       system: let
-        version = "0.1.7";
+        version = "0.1.8";
 
         port = "8000";
 
