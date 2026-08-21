@@ -15,7 +15,7 @@ dateFormat = "2 January 2006"
 [params.author]
   name = "Marco Burro"
   image = "img/me.jpeg"
-  headline = "Some day I'll post stuff here"
+  headline = "One day I'll post stuff here"
   links = [
     { github = "https://github.com/buurro" },
     { twitter = "https://twitter.com/BurroMarco" },
