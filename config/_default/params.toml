@@ -53,10 +53,6 @@ enableCodeCopy = false
   # site = "ABC12345"
   # domain = "llama.yoursite.com"
 
-[umamiAnalytics]
-  site = "6b55cd82-d3ad-4001-8536-c873b4af5364"
-  domain = "umami.app.marco.ooo"
-
 [verification]
   # google = ""
   # bing = ""
