@@ -17,8 +17,8 @@
       themeCongo = pkgs.fetchFromGitHub {
         owner = "jpanther";
         repo = "congo";
-        rev = "v2.12.2";
-        sha256 = "sha256-VzO4hQH+o2a65sH6CA1bQjTDuFRRyUQOP17f4J0kCKY=";
+        rev = "v2.14.0";
+        sha256 = "sha256-4o1rm6OcbA2X/6wHGGCzWrSp+W/d2+/BK1Hh0FW2tA0=";
       };
 
       marcoooo = pkgs.stdenv.mkDerivation {
