@@ -1,6 +1,8 @@
 /result
 /dist
 /themes
+# retro-ui CSS, linked from the flake input (see flake.nix / README)
+/assets/retro-ui
 
 # Created by https://www.toptal.com/developers/gitignore/api/hugo,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=hugo,macos

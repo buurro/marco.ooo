@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="rui-page-header">
+  <div>
+    <h1>{{ .Title }}</h1>
+    {{- with .Description }}
+    <p class="rui-page-description">{{ . | markdownify }}</p>
+    {{- end }}
+  </div>
+</div>
+{{- with .Content }}
+<div class="article-body">{{ . }}</div>
+{{- end }}
+{{- $pages := .Paginate .RegularPages }}
+{{- if $pages.Pages }}
+<ul class="post-list">
+  {{- range $pages.Pages }}
+  <li>{{ partial "post-card.html" . }}</li>
+  {{- end }}
+</ul>
+{{ partial "paginator.html" . }}
+{{- else }}
+<div class="rui-card rui-card-dashed rui-card-pad-lg empty">// nothing here yet</div>
+{{- end }}
+{{ end }}

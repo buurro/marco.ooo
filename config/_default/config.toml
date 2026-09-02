@@ -1,14 +1,19 @@
 # -- Site Configuration --
-# Refer to the theme docs for more details about each of these parameters.
-# https://jpanther.github.io/congo/docs/getting-started/
+# Layouts live in ./layouts, styles in ./assets/css plus the retro-ui
+# tokens/components mounted at ./assets/retro-ui (see flake.nix).
 
+baseURL = "https://marco.ooo/"
 defaultContentLanguage = "en"
+locale = "en"
 
 enableRobotsTXT = true
 summaryLength = 0
 
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
+# No tags/categories pages: nothing links to them.
+disableKinds = ["taxonomy", "term"]
 
-[paginator]
-  pageSize = 10
+[outputs]
+  home = ["HTML", "RSS"]
+
+[pagination]
+  pagerSize = 10

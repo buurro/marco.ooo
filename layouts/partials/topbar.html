@@ -1,0 +1,19 @@
+<header class="rui-topbar">
+  <div class="rui-topbar-left">
+    <span class="rui-topbar-logo"><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></span>
+    {{- with .Site.Menus.main }}
+    <nav class="rui-topbar-nav" aria-label="Main">
+      {{- range . }}
+      {{- $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+      <a href="{{ .URL }}"{{ if $active }} class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+    {{- end }}
+  </div>
+  <div class="rui-topbar-right">
+    <button type="button" class="rui-theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+  </div>
+</header>

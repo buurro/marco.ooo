@@ -1,0 +1,7 @@
+<a class="rui-card rui-card-interactive rui-card-pad-md post-card" href="{{ .RelPermalink }}">
+  {{ partial "article-meta.html" . }}
+  <h2 class="post-card-title">{{ .Title }}</h2>
+  {{- with .Description }}
+  <p class="post-card-desc">{{ . }}</p>
+  {{- end }}
+</a>

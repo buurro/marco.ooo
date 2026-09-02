@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{- $opt := dict "page" . }}
+<article class="article">
+  <header class="article-header">
+    {{- if partial "opt.html" (merge $opt (dict "key" "showBreadcrumbs")) }}
+    {{ partial "breadcrumbs.html" . }}
+    {{- end }}
+    <h1 class="article-title">{{ .Title }}</h1>
+    {{ partial "article-meta.html" . }}
+  </header>
+  <div class="article-body">
+    {{ .Content }}
+  </div>
+  {{- if partial "opt.html" (merge $opt (dict "key" "showPagination")) }}
+  {{ partial "article-nav.html" . }}
+  {{- end }}
+</article>
+{{ end }}

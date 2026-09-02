@@ -1,0 +1,470 @@
+/* marco.ooo - blog layout on top of the retro-ui tokens and components.
+   Everything themable comes from retro-ui/styles/tokens.css; this file only
+   arranges the page and styles what a blog has and a dashboard does not
+   (prose, post list, profile). */
+
+:root {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Sticky footer: base.css already gives body a viewport-height floor. */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+/* --- Top bar --------------------------------------------------------- */
+
+/* retro-ui hides the wordmark on phones because its first nav item links
+   home. Here the wordmark *is* the home link, so keep it. */
+@media (max-width: 560px) {
+  .rui-topbar-logo {
+    display: inline;
+  }
+}
+
+.theme-icon-dark {
+  display: none;
+}
+
+[data-theme="dark"] .theme-icon-dark {
+  display: inline;
+}
+
+[data-theme="dark"] .theme-icon-light {
+  display: none;
+}
+
+/* --- Profile (home) -------------------------------------------------- */
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 1.5rem;
+}
+
+.profile-avatar {
+  display: block;
+  width: 160px;
+  height: 160px;
+  padding: 4px;
+  background: var(--color-bg-secondary);
+  border: 3px solid var(--color-border-bold);
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .profile-avatar {
+  box-shadow: var(--shadow-lg), 0 0 24px var(--color-glow);
+}
+
+.profile .rui-hero {
+  padding: 2rem 0 1.25rem;
+}
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.profile-content {
+  margin-top: 2rem;
+  max-width: 40rem;
+}
+
+/* --- Post list -------------------------------------------------------- */
+
+.post-list {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.post-card {
+  display: block;
+}
+
+.post-card-title {
+  font-size: 1rem;
+  margin: 0.4rem 0 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.post-card-desc {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.empty {
+  margin-top: 2rem;
+  text-align: center;
+  font-family: var(--font-terminal);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  /* Legible, unlike the 0.4 opacity a disabled card gets. */
+  opacity: 0.75;
+}
+
+.empty::after {
+  content: "_";
+  animation: rui-cursor-blink 1s infinite;
+}
+
+.post-paginator {
+  margin-top: 2rem;
+}
+
+.rui-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+  box-shadow:
+    0 2px 0 0 var(--color-border-bold),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Meta row (date // reading time // author) ----------------------- */
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  font-family: var(--font-terminal);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  color: var(--color-text-muted);
+}
+
+.meta > * + *:not(.rui-badge)::before {
+  content: "//";
+  margin-right: 0.5rem;
+  opacity: 0.6;
+}
+
+.meta .rui-badge {
+  margin-left: 0.25rem;
+  font-size: 0.6875rem;
+  padding: 0.15rem 0.5rem;
+  line-height: 1.2;
+}
+
+/* --- Article ---------------------------------------------------------- */
+
+.article-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--color-border-bold);
+}
+
+.breadcrumbs {
+  font-family: var(--font-terminal);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.breadcrumbs a {
+  color: inherit;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+.breadcrumbs .sep {
+  margin: 0 0.4rem;
+  opacity: 0.6;
+}
+
+.article-title {
+  font-size: 1.5rem;
+  line-height: 1.35;
+  margin: 0 0 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.article-body {
+  line-height: 1.7;
+}
+
+.article-body p,
+.article-body ul,
+.article-body ol,
+.article-body blockquote,
+.article-body table,
+.article-body figure,
+.article-body .highlight {
+  margin: 0 0 1.1rem;
+}
+
+.article-body h2,
+.article-body h3,
+.article-body h4 {
+  scroll-margin-top: 5rem;
+}
+
+.article-body h2 {
+  font-size: 1.05rem;
+  margin: 2.25rem 0 0.85rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.article-body h3 {
+  font-size: 0.9rem;
+  margin: 1.75rem 0 0.6rem;
+}
+
+.article-body h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* Markdown-source prefixes: a wink at where the text comes from. */
+.article-body h2::before {
+  content: "## ";
+  color: var(--color-primary);
+}
+
+.article-body h3::before {
+  content: "### ";
+  color: var(--color-primary);
+}
+
+.heading-anchor {
+  margin-left: 0.4em;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+h2:hover .heading-anchor,
+h3:hover .heading-anchor,
+h4:hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.lead {
+  font-family: var(--font-terminal);
+  font-size: 1.4rem;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  margin: 0 0 1.25rem;
+}
+
+.article-body ul,
+.article-body ol {
+  padding-left: 1.5rem;
+}
+
+.article-body ul {
+  list-style: square;
+}
+
+.article-body li + li {
+  margin-top: 0.25rem;
+}
+
+.article-body code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  padding: 0.1em 0.35em;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+/* Code blocks: recessed panel, like a retro-ui input well. */
+.article-body pre {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border-bold);
+  box-shadow: var(--shadow-pressed);
+}
+
+.article-body pre code {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: inherit;
+}
+
+.article-body blockquote {
+  padding: 0.5rem 1rem;
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.article-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Stitching, like the top bar's hem. */
+.article-body hr {
+  height: 0;
+  margin: 2rem 0;
+  border: 0;
+  border-top: 2px dashed var(--color-border-bold);
+  opacity: 0.5;
+}
+
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--color-border-bold);
+  box-shadow: var(--shadow-md);
+}
+
+.article-body table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.article-body th,
+.article-body td {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.article-body th {
+  background: var(--color-bg-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.article-body kbd {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  padding: 0.1em 0.4em;
+  border: 2px solid var(--color-border-bold);
+  border-radius: 3px;
+  box-shadow: 0 2px 0 0 var(--color-border-bold);
+  background: var(--color-bg-secondary);
+}
+
+/* --- Older / newer ---------------------------------------------------- */
+
+.article-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 560px) {
+  .article-nav {
+    grid-template-columns: 1fr;
+  }
+}
+
+.article-nav-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: 100%;
+}
+
+.article-nav-next {
+  text-align: right;
+}
+
+.article-nav-label {
+  font-family: var(--font-terminal);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.article-nav-title {
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* --- 404 -------------------------------------------------------------- */
+
+.notfound {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+/* --- Footer ----------------------------------------------------------- */
+
+.site-footer {
+  padding: 1.5rem 1.25rem 2rem;
+  text-align: center;
+  font-family: var(--font-terminal);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.site-footer::before {
+  content: "";
+  display: block;
+  max-width: 46rem;
+  height: 1px;
+  margin: 0 auto 1.25rem;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 4px,
+    var(--color-border) 4px 8px
+  );
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: inherit;
+  font-weight: 400;
+}
+
+.site-footer-sep {
+  margin: 0 0.4rem;
+  opacity: 0.6;
+}

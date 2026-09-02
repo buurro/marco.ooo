@@ -1,0 +1,79 @@
+/* Syntax highlighting (Chroma classes, markup.highlight.noClasses = false)
+   mapped onto the retro-ui tokens, so code blocks follow the theme toggle
+   without a second stylesheet. The text-grade tokens are used on purpose:
+   the bright accents are fills and would fall under AA as text. */
+
+.chroma {
+  color: var(--color-text);
+}
+
+/* Comments, preprocessor */
+.chroma .c, .chroma .c1, .chroma .cm, .chroma .cs, .chroma .ch,
+.chroma .cp, .chroma .cpf {
+  color: var(--color-text-muted);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Keywords, tags */
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp,
+.chroma .kr, .chroma .kt, .chroma .nt, .chroma .ow {
+  color: var(--color-link);
+  font-weight: 700;
+}
+
+/* Strings */
+.chroma .s, .chroma .s1, .chroma .s2, .chroma .sa, .chroma .sb,
+.chroma .sc, .chroma .sd, .chroma .se, .chroma .sh, .chroma .si,
+.chroma .sx, .chroma .sr, .chroma .ss, .chroma .dl {
+  color: var(--color-success-text);
+}
+
+/* Numbers */
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi,
+.chroma .mo, .chroma .il {
+  color: var(--color-info-text);
+}
+
+/* Functions, classes, attributes, builtins */
+.chroma .nf, .chroma .fm, .chroma .nc, .chroma .nn {
+  color: var(--color-info-text);
+}
+
+.chroma .na, .chroma .nb, .chroma .bp, .chroma .nd, .chroma .nv,
+.chroma .vc, .chroma .vg, .chroma .vi {
+  color: var(--color-warning-text);
+}
+
+/* Generic (diffs, prompts) */
+.chroma .gd { color: var(--color-danger-text); }
+.chroma .gi { color: var(--color-success-text); }
+.chroma .ge { font-style: italic; }
+.chroma .gs { font-weight: 700; }
+.chroma .gp { color: var(--color-text-muted); }
+.chroma .gh, .chroma .gu { color: var(--color-link); font-weight: 700; }
+.chroma .err { color: var(--color-danger-text); }
+
+/* Line numbers, highlighted lines */
+.chroma .ln, .chroma .lnt {
+  margin-right: 0.6em;
+  padding-right: 0.6em;
+  color: var(--color-text-muted);
+  opacity: 0.6;
+  user-select: none;
+}
+
+.chroma .lntd:first-child {
+  border-right: 1px dashed var(--color-border);
+}
+
+.chroma .hl {
+  display: block;
+  background: var(--color-primary-light);
+}
+
+.chroma .lntable {
+  border-spacing: 0;
+  width: auto;
+  display: table;
+}

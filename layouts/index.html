@@ -1,0 +1,30 @@
+{{ define "main" }}
+{{- $author := .Site.Params.author }}
+<section class="profile">
+  {{- with $author.image }}
+  {{- with resources.Get . }}
+  {{- $img := .Fill "320x320 q85" }}
+  <img class="profile-avatar" src="{{ $img.RelPermalink }}" width="160" height="160" alt="{{ $author.name }}">
+  {{- end }}
+  {{- end }}
+  <div class="rui-hero">
+    <h1 class="rui-hero-title">{{ $author.name | default .Site.Title }}</h1>
+    {{- with $author.headline }}
+    <p class="rui-hero-subtitle">{{ . | markdownify }}</p>
+    {{- end }}
+  </div>
+  {{- with $author.links }}
+  {{- $labels := dict "github" "GitHub" "twitter" "Twitter" "bluesky" "Bluesky" "mastodon" "Mastodon" "linkedin" "LinkedIn" "email" "Email" }}
+  <nav class="profile-links" aria-label="Links">
+    {{- range . }}
+    {{- range $name, $url := . }}
+    <a class="rui-btn rui-btn-secondary" href="{{ $url }}" rel="me">{{ index $labels $name | default (title $name) }}</a>
+    {{- end }}
+    {{- end }}
+  </nav>
+  {{- end }}
+  {{- with .Content }}
+  <div class="article-body profile-content">{{ . }}</div>
+  {{- end }}
+</section>
+{{ end }}

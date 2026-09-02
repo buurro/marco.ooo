@@ -1,0 +1,16 @@
+{{- $p := .Paginator }}
+{{- if gt $p.TotalPages 1 }}
+<nav class="rui-pagination post-paginator" aria-label="Pagination">
+  {{- if $p.HasPrev }}
+  <a class="rui-btn rui-btn-secondary rui-btn-sm" href="{{ $p.Prev.URL }}">&larr; Newer</a>
+  {{- else }}
+  <span class="rui-btn rui-btn-secondary rui-btn-sm" aria-disabled="true">&larr; Newer</span>
+  {{- end }}
+  <span class="rui-pagination-label"><span>Page {{ $p.PageNumber }} / {{ $p.TotalPages }}</span></span>
+  {{- if $p.HasNext }}
+  <a class="rui-btn rui-btn-secondary rui-btn-sm" href="{{ $p.Next.URL }}">Older &rarr;</a>
+  {{- else }}
+  <span class="rui-btn rui-btn-secondary rui-btn-sm" aria-disabled="true">Older &rarr;</span>
+  {{- end }}
+</nav>
+{{- end }}

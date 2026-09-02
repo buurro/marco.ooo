@@ -1,0 +1,17 @@
+{{- $opt := dict "page" . }}
+<div class="meta">
+  {{- if and (partial "opt.html" (merge $opt (dict "key" "showDate"))) (not .Date.IsZero) }}
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (site.Params.dateFormat | default "2 January 2006") }}</time>
+  {{- end }}
+  {{- if partial "opt.html" (merge $opt (dict "key" "showReadingTime")) }}
+  <span>{{ .ReadingTime }} min read</span>
+  {{- end }}
+  {{- if partial "opt.html" (merge $opt (dict "key" "showAuthor")) }}
+  {{- with site.Params.author.name }}
+  <span>{{ . }}</span>
+  {{- end }}
+  {{- end }}
+  {{- if and .Draft (partial "opt.html" (merge $opt (dict "key" "showDraftLabel"))) }}
+  <span class="rui-badge rui-badge-warning">Draft</span>
+  {{- end }}
+</div>

@@ -2,12 +2,19 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     utils.url = "github:numtide/flake-utils";
+    # Design tokens + component CSS the site's layouts are built on.
+    # `nix flake update retro-ui` to pull a newer revision.
+    retro-ui = {
+      url = "github:buurro/ui";
+      flake = false;
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     utils,
+    retro-ui,
   }:
     utils.lib.eachDefaultSystem (
       system: let
@@ -19,12 +26,8 @@
 
         buildDependencies = with pkgs; [hugo];
 
-        themeCongo = pkgs.fetchFromGitHub {
-          owner = "jpanther";
-          repo = "congo";
-          rev = "v2.14.0";
-          sha256 = "sha256-4o1rm6OcbA2X/6wHGGCzWrSp+W/d2+/BK1Hh0FW2tA0=";
-        };
+        # Hugo reads the retro-ui CSS from assets/retro-ui (see layouts/partials/head.html).
+        retroUiSrc = "${retro-ui}/src";
 
         marcoooo = pkgs.stdenv.mkDerivation {
           name = "marco-ooo";
@@ -34,8 +37,9 @@
 
           # works on macos for some reason
           buildPhase = ''
-            mkdir -p themes
-            cp -r ${themeCongo} themes/congo
+            mkdir -p assets
+            rm -rf assets/retro-ui
+            cp -r ${retroUiSrc} assets/retro-ui
             ${pkgs.hugo}/bin/hugo
           '';
           installPhase = ''
@@ -44,10 +48,11 @@
         };
       in rec {
         devShells.default = pkgs.mkShell {
+          # Links the pinned retro-ui into assets/. Point the link at a local
+          # checkout (../ui/src) instead to iterate on the tokens live.
           shellHook = ''
-            rm themes/congo
-            mkdir -p themes
-            ln -s ${themeCongo} themes/congo
+            mkdir -p assets
+            [ -e assets/retro-ui ] || ln -s ${retroUiSrc} assets/retro-ui
           '';
           buildInputs = buildDependencies;
         };

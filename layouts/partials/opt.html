@@ -1,0 +1,10 @@
+{{/* Article option lookup: page front matter (incl. cascaded) wins over
+     [article] in params.toml. `default` would swallow an explicit `false`,
+     hence the isset dance.
+     Usage: partial "opt.html" (dict "page" . "key" "showDate") */}}
+{{- $key := lower .key }}
+{{- $value := index (site.Params.article | default dict) $key }}
+{{- if isset .page.Params $key }}
+  {{- $value = index .page.Params $key }}
+{{- end }}
+{{- return $value }}

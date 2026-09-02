@@ -16,9 +16,26 @@
         "type": "github"
       }
     },
+    "retro-ui": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787671187,
+        "narHash": "sha256-WI6CY/PFakPDRO7qv04PvYZuZO2Sc3pcEPjf7gt/mM4=",
+        "owner": "buurro",
+        "repo": "ui",
+        "rev": "8540e772bbfe94bc7f6a3ee7f0ddcbd356eabda4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "buurro",
+        "repo": "ui",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "retro-ui": "retro-ui",
         "utils": "utils"
       }
     },

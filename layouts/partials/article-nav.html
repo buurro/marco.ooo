@@ -1,0 +1,28 @@
+{{/* Older / newer post. Section pages sort newest first, so Hugo's "next"
+     is the newer post. invertPagination swaps the two sides. */}}
+{{- $older := .PrevInSection }}
+{{- $newer := .NextInSection }}
+{{- if partial "opt.html" (dict "page" . "key" "invertPagination") }}
+  {{- $older = .NextInSection }}
+  {{- $newer = .PrevInSection }}
+{{- end }}
+{{- if or $older $newer }}
+<nav class="article-nav" aria-label="Post navigation">
+  <div>
+    {{- with $older }}
+    <a class="rui-card rui-card-interactive rui-card-pad-md article-nav-card" href="{{ .RelPermalink }}" rel="prev">
+      <span class="article-nav-label">&larr; Older</span>
+      <span class="article-nav-title">{{ .Title }}</span>
+    </a>
+    {{- end }}
+  </div>
+  <div>
+    {{- with $newer }}
+    <a class="rui-card rui-card-interactive rui-card-pad-md article-nav-card article-nav-next" href="{{ .RelPermalink }}" rel="next">
+      <span class="article-nav-label">Newer &rarr;</span>
+      <span class="article-nav-title">{{ .Title }}</span>
+    </a>
+    {{- end }}
+  </div>
+</nav>
+{{- end }}
